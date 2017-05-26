@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--showAction的取值说明: * always : 总是显示 * ifroom : 如果放的下去，就显示（溢出菜单） * never : 从不显示 * withText: 和文本一起显示 * collapseActionView: 折叠显示-->
+    <!--展开-->
+    <item
+        android:orderInCategory="100"
+        android:title="呼叫" app:showAsAction="always|withText"/>
+    <item
+        android:orderInCategory="100" app:showAsAction="always|withText"
+        android:title="取消"/>
+
+
+    <!--分组-->
+    <group
+android:visible="true"
+        android:checkableBehavior="single">
+        <item
+            android:orderInCategory="100"
+            app:showAsAction="collapseActionView"
+            android:title="呼叫" />
+        <item
+            android:orderInCategory="100"
+            app:showAsAction="collapseActionView"
+            android:title="取消"/>
+
+    </group>
+
+
+    <!--嵌套-->
+    <item>
+        <menu>
+            <item
+                android:orderInCategory="100"
+                app:showAsAction="always"
+                android:title="呼叫" />
+            <item
+                android:orderInCategory="100"
+                app:showAsAction="always"
+                android:title="取消"/>
+        </menu>
+
+    </item>
+</menu>
