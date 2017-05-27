@@ -3,12 +3,13 @@ package googleplay.kimda.com.googleplay.activitys;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,43 @@ public class MainActivity extends ActionBarActivity {
         initDrawer();
         initViewPager();
 
+        initEvent();
+
     }
+
+    private void initEvent() {
+
+        pagerSelect();
+
+
+    }
+
+    /**
+     * 页面选中后的操作
+     */
+    private void pagerSelect() {
+        //Viewpager监听页面，
+        mViewPager.addOnPageChangeListener(mPageChangeListener);
+
+    }
+
+    private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            //懒加载:指向才加载
+            FragmentFactory.createOrGetFragmentint(position).loadData();//因为缓存了Fragment
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
+
+    };
 
 
     /**
@@ -57,31 +94,25 @@ public class MainActivity extends ActionBarActivity {
         mTablayout.setupWithViewPager(mViewPager);
     }
 
-    private FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+    private FragmentStatePagerAdapter mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+        //当页面加载完成时让监听器选择第一个页面，修改默认选中第一页面的BUG，
+        //这个方法无效：mViewPager.setCurrentItem(0)
+        @Override
+        public void finishUpdate(ViewGroup container) {
+            super.finishUpdate(container);
+            mPageChangeListener.onPageSelected(0);
+        }
+
         @Override
         public int getCount() {
             return mStringArray.length;
         }
-//
-//        @Override
-//        public boolean isViewFromObject(View view, Object object) {
-//            return view == object;
-//        }
-//
-//        @Override
-//        public TextView instantiateItem(ViewGroup container, int position) {
-//            TextView textView = new TextView(UiUtils.getContext());
-//            textView.setGravity(Gravity.CENTER);//居中
-//            textView.setText(mStringArray[position]);
-//            textView.setTextColor(Color.BLACK);
-//            container.addView(textView);
-//            return textView;
-//        }
 
         @Override
         public Fragment getItem(int position) {
             //使用FragmentFactory  Fragment工厂加载Fragment
-            BaseFragment fragment = FragmentFactory.createFragment(position);
+            BaseFragment fragment = FragmentFactory.createOrGetFragmentint(position);
             return fragment;
         }
 

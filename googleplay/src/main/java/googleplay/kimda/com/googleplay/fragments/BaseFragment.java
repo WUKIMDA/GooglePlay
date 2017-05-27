@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import googleplay.kimda.com.googleplay.utils.UiUtils;
 import googleplay.kimda.com.googleplay.views.KimdaAsyncTask;
 
 /**
@@ -19,23 +20,25 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //避免每次new多个KimdaAsyncTask
+        if (mKimdaAsyncTask == null) {
+            mKimdaAsyncTask = new KimdaAsyncTask(UiUtils.getContext()) {
+                @Override
+                public void onPreExecute() {  //第一步: 默认第一次全部初始化,但是不显示,根据网络状态显示
+                    super.onPreExecute();
+                }
 
-        mKimdaAsyncTask = new KimdaAsyncTask(getContext()) {
-            @Override
-            public void onPreExecute() {  //第一步: 默认第一次全部初始化,但是不显示,根据网络状态显示
-                super.onPreExecute();
-            }
+                @Override
+                public Result getServiceData() {// 第二步:网络请求,返回网络状态
+                    return doInbackground();
+                }
 
-            @Override
-            public Result getServiceData() {// 第二步:网络请求,返回网络状态
-                return doInbackground();
-            }
-
-            @Override
-            public View getSuccessView() { //第三步:根据网络状态返回要显示的View
-                return onPostExecute();
-            }
-        };
+                @Override
+                public View getSuccessView() { //第三步:根据网络状态返回要显示的View
+                    return onPostExecute();
+                }
+            };
+        }
         return mKimdaAsyncTask.getCommonView();
     }
 
@@ -46,16 +49,25 @@ public abstract class BaseFragment extends Fragment {
     public abstract View onPostExecute();
 
 
-
     /**
      * 当Activity创建的时候Fragment显示数据
+     *
      * @param savedInstanceState
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mKimdaAsyncTask.getDataFromServer();
+        //不再关联Activity的时候进行网络请求(不再填充网络请求返回后返回的View,为懒加载做准备(选中这个页面后再访问网络请求))
+        // mKimdaAsyncTask.getDataFromServer();
 
     }
+
+    /**
+     * 网络请求mKimdaAsyncTask.getDataFromServer();
+     */
+    public void loadData() {
+        mKimdaAsyncTask.getDataFromServer();
+    }
+
 }

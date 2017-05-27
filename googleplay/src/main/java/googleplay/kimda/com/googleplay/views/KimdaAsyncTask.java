@@ -26,10 +26,11 @@ public abstract class KimdaAsyncTask {
 
     /**
      * 返回显示的状态加载的View页面
+     *
      * @return
      */
-    public FrameLayout getCommonView(){
-        return  mCommonView;
+    public FrameLayout getCommonView() {
+        return mCommonView;
     }
 
     public static final int STATE_UNLOAD = 0;// 未加载
@@ -45,7 +46,6 @@ public abstract class KimdaAsyncTask {
     private View mErrorView;
     private View mEmptyView;
     private View mSuccessView;
-
 
     private static final String TAG = "KimdaAsyncTask";
 
@@ -73,8 +73,18 @@ public abstract class KimdaAsyncTask {
         //请求成功后   1:有数据   2:没数据
     }
 
+    private boolean isLoading;
 
     public void getDataFromServer() {
+        if (mCurrentState == STATE_LOAD_SUCCESS) {
+            return;
+        }
+        //避免手快而执行多个访问网络的子线程
+        if (isLoading) {
+            return;
+        }
+        //状态更改为正在加载
+        isLoading = true;
         //第一次刷新,默认状态正在加载
         mCurrentState = STATE_LOADING;
         refreshUI();
@@ -84,14 +94,11 @@ public abstract class KimdaAsyncTask {
             @Override
             public void run() {
                 Log.d(TAG, "访问 Service");
-                SystemClock.sleep(2000);
                 //根据枚举返回int结果
                 Result result = getServiceData();
                 mCurrentState = result.getResult();
                 afreshRefreshUI();
             }
-
-
         }).start();
     }
 
@@ -103,6 +110,8 @@ public abstract class KimdaAsyncTask {
             @Override
             public void run() {
                 refreshUI();
+                //状态更改为加载完成
+                isLoading = false;
             }
         });
     }
@@ -129,9 +138,8 @@ public abstract class KimdaAsyncTask {
     public abstract View getSuccessView();
 
     //STATE_LOAD_ERROR      STATE_LOAD_EMPTY        STATE_LOAD_SUCCESS
-    public enum Result{
-        SUCCESS(STATE_LOAD_SUCCESS),EMPTY(STATE_LOAD_EMPTY),ERROR(STATE_LOAD_ERROR);
-
+    public enum Result {
+        SUCCESS(STATE_LOAD_SUCCESS), EMPTY(STATE_LOAD_EMPTY), ERROR(STATE_LOAD_ERROR);
 
         private int mState;
 
@@ -139,12 +147,11 @@ public abstract class KimdaAsyncTask {
             this.mState = state;
         }
 
-        public int getResult(){
+        public int getResult() {
             return mState;
         }
 
     }
-
 
 
 }
