@@ -30,15 +30,16 @@ public class MainActivity extends ActionBarActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private String[] mStringArray;
+    private boolean isFirstLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        isFirstLoad = true;
         initDrawer();
         initViewPager();
-
         initEvent();
 
     }
@@ -94,6 +95,8 @@ public class MainActivity extends ActionBarActivity {
         mTablayout.setupWithViewPager(mViewPager);
     }
 
+
+
     private FragmentStatePagerAdapter mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
         //当页面加载完成时让监听器选择第一个页面，修改默认选中第一页面的BUG，
@@ -101,7 +104,11 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void finishUpdate(ViewGroup container) {
             super.finishUpdate(container);
-            mPageChangeListener.onPageSelected(0);
+            if (isFirstLoad){
+                mPageChangeListener.onPageSelected(0);
+                isFirstLoad = false;
+            }
+
         }
 
         @Override

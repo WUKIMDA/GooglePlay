@@ -34,4 +34,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/picasso-2.5.2.jar')
     compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
 }

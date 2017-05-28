@@ -11,12 +11,24 @@ import googleplay.kimda.com.googleplay.holder.BaseHolder;
  */
 
 public class AppAdapter extends BasicAdapter<HomeBean.ListBean> {
-    public AppAdapter(List<HomeBean.ListBean> data, int layoutId) {
-        super(data, layoutId);
+    public AppAdapter(List<HomeBean.ListBean> data) {
+        super(data);
+    }
+
+    @Override
+    protected List<HomeBean.ListBean> getLoadMoreData() throws Exception {
+        return null;
     }
 
     @Override
     public BaseHolder<HomeBean.ListBean> onCreateViewHolder(int position) {
-        return new AppHolder(rootView);
+        return new AppHolder();
     }
+    //TODO:不支持加载更多
+    @Override
+    public boolean supportLayout() {
+        return false;
+    }
+
+
 }

@@ -17,15 +17,12 @@ import it.sephiroth.android.library.picasso.Picasso;
  */
 
 public class AppHolder extends BaseHolder<HomeBean.ListBean> {
+    private  View rootView;
     public ImageView mItemAppinfoIvIcon;
     public TextView mItemAppinfoTvTitle;
     public RatingBar mItemAppinfoRbStars;
     public TextView mItemAppinfoTvSize;
     public TextView mItemAppinfoTvDes;
-
-    public AppHolder(View view) {
-        super(view);
-    }
 
     @Override
     public void refreshItem(HomeBean.ListBean itemData) {
@@ -33,14 +30,13 @@ public class AppHolder extends BaseHolder<HomeBean.ListBean> {
         mItemAppinfoTvTitle.setText(itemData.getName());
         mItemAppinfoTvSize.setText(Formatter.formatFileSize(UiUtils.getContext(),itemData.getSize()));
         mItemAppinfoTvDes.setText(itemData.getDes());
-        mItemAppinfoRbStars.setNumStars(itemData.getSize());
+        mItemAppinfoRbStars.setRating(itemData.getStars());
         //Picasso加载图片
         Picasso.with(UiUtils.getContext()).load(Contans.URL_HOME_IMAGE+itemData.getIconUrl()).into(mItemAppinfoIvIcon);
     }
 
     @Override
     public void init() {
-        View.inflate(UiUtils.getContext(), R.layout.item_home_app_info, null);
         mItemAppinfoIvIcon = (ImageView) rootView.findViewById(R.id.item_appinfo_iv_icon);
         mItemAppinfoTvTitle = (TextView) rootView.findViewById(R.id.item_appinfo_tv_title);
         mItemAppinfoRbStars = (RatingBar) rootView.findViewById(R.id.item_appinfo_rb_stars);
@@ -48,5 +44,10 @@ public class AppHolder extends BaseHolder<HomeBean.ListBean> {
         mItemAppinfoTvDes = (TextView) rootView.findViewById(R.id.item_appinfo_tv_des);
     }
 
-
+    @Override
+    public View getView() {
+        rootView = UiUtils.inflate(R.layout.item_home_app_info);
+        init();
+        return rootView;
+    }
 }

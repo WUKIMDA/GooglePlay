@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/02_toolbar/02_toolbar.iml" filepath="$PROJECT_DIR$/02_toolbar/02_toolbar.iml" />
       <module fileurl="file://$PROJECT_DIR$/03_drawer抽屉菜单学习/03_drawer抽屉菜单学习.iml" filepath="$PROJECT_DIR$/03_drawer抽屉菜单学习/03_drawer抽屉菜单学习.iml" />
       <module fileurl="file://$PROJECT_DIR$/GooglePlayKimda.iml" filepath="$PROJECT_DIR$/GooglePlayKimda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TeacherCode/TeacherCode.iml" filepath="$PROJECT_DIR$/TeacherCode/TeacherCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/googleplay/googleplay.iml" filepath="$PROJECT_DIR$/googleplay/googleplay.iml" />
     </modules>
   </component>

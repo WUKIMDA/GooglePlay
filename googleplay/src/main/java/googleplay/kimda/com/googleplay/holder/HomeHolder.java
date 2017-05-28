@@ -24,9 +24,6 @@ public class HomeHolder extends BaseHolder<HomeBean.ListBean> {//注意  泛型�
     public TextView mItemAppinfoTvSize;
     public TextView mItemAppinfoTvDes;
 
-    public HomeHolder(View view) {
-        super(view);
-    }
 
     /**单一Item, 具体Bean数据,不是List集合*/
     @Override
@@ -35,13 +32,10 @@ public class HomeHolder extends BaseHolder<HomeBean.ListBean> {//注意  泛型�
         mItemAppinfoTvTitle.setText(data.getName());
         mItemAppinfoTvSize.setText(Formatter.formatFileSize(UiUtils.getContext(),data.getSize()));
         mItemAppinfoTvDes.setText(data.getDes());
-        mItemAppinfoRbStars.setNumStars(data.getSize());
+        mItemAppinfoRbStars.setRating(data.getStars());
         //Picasso加载图片
         Picasso.with(UiUtils.getContext()).load(Contans.URL_HOME_IMAGE + data.getIconUrl()).into(mItemAppinfoIvIcon);
-
-
     }
-
 
     public void init() {
         mItemAppinfoIvIcon = (ImageView) rootView.findViewById(R.id.item_appinfo_iv_icon);
@@ -49,6 +43,15 @@ public class HomeHolder extends BaseHolder<HomeBean.ListBean> {//注意  泛型�
         mItemAppinfoRbStars = (RatingBar) rootView.findViewById(R.id.item_appinfo_rb_stars);
         mItemAppinfoTvSize = (TextView) rootView.findViewById(R.id.item_appinfo_tv_size);
         mItemAppinfoTvDes = (TextView) rootView.findViewById(R.id.item_appinfo_tv_des);
+    }
+
+    public View rootView;
+
+    @Override
+    public View getView() {
+        rootView = UiUtils.inflate(R.layout.item_home_app_info);
+        init();
+        return rootView;
     }
 
 

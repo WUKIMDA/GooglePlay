@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
 
-import googleplay.kimda.com.googleplay.R;
 import googleplay.kimda.com.googleplay.adapters.HomeAdapter;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 import googleplay.kimda.com.googleplay.utils.Contans;
@@ -66,8 +65,9 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public View onPostExecute() {
+        //HomeFragment请求网络成功后填充的View
         ListView listView = new ListView(UiUtils.getContext());
-        listView.setAdapter(new HomeAdapter(mDataLists, R.layout.item_home_app_info));
+        listView.setAdapter(new HomeAdapter(mDataLists));
         return listView;
     }
 

@@ -12,13 +12,6 @@ import android.view.View;
  */
 public abstract class BaseHolder<T> {
 
-    public View rootView;
-
-    public BaseHolder(View view){
-        rootView = view;
-        init();
-    }
-
     private T mItemData;
 
     /**单一Item, 具体Bean数据,不是List集合*/
@@ -31,5 +24,7 @@ public abstract class BaseHolder<T> {
 
     /**初始化控件*/
     public abstract void init();
+
+    public abstract View getView();
 
 }

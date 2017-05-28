@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
 
-import googleplay.kimda.com.googleplay.R;
 import googleplay.kimda.com.googleplay.adapters.AppAdapter;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 import googleplay.kimda.com.googleplay.utils.Contans;
@@ -42,9 +41,9 @@ public class AppFragment extends BaseFragment {
             HomeBean homeBean = gson.fromJson(gsonStr, HomeBean.class);
 
 
-            if (homeBean == null){
+            if (homeBean == null) {
                 return KimdaAsyncTask.Result.EMPTY;
-            }else{
+            } else {
                 mHomeBeanList = homeBean.getList();
                 if (mHomeBeanList != null && mHomeBeanList.size() > 0) {
                     return KimdaAsyncTask.Result.SUCCESS;
@@ -62,8 +61,7 @@ public class AppFragment extends BaseFragment {
     @Override
     public View onPostExecute() {
         ListView listView = new ListView(UiUtils.getContext());
-                                                                //同样的Item布局
-        listView.setAdapter(new AppAdapter(mHomeBeanList, R.layout.item_home_app_info));
+        listView.setAdapter(new AppAdapter(mHomeBeanList));
         return listView;
     }
 }
