@@ -9,6 +9,7 @@ import java.util.List;
 
 import googleplay.kimda.com.googleplay.holder.BaseHolder;
 import googleplay.kimda.com.googleplay.holder.LoadMoreHolder;
+import googleplay.kimda.com.googleplay.manager.ThreadManager;
 import googleplay.kimda.com.googleplay.utils.UiUtils;
 
 /**
@@ -110,45 +111,51 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
 
         getLoadModeHolderInstance().setItemState(LoadMoreHolder.STATE_LOADING);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int state = LoadMoreHolder.STATE_LOADING;
-                //加载更多数据
-                List<T> loadMoreData = null;
-                try {
-                    loadMoreData = getLoadMoreData();
-                    SystemClock.sleep(1000);
-                    if (loadMoreData.size() < 20){//不足20条数据
-                        state=LoadMoreHolder.STATE_NONE;
-                    }
+       // new Thread(mRunnableLoadMore).start();
+        //使用线程池:特点:高效
+        ThreadManager.getNormalPool().execute(mRunnableLoadMore);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //加载失败
-                    state=LoadMoreHolder.STATE_FAIL;
-                }
-                if (loadMoreData != null) {
-                    mData.addAll(loadMoreData);
-                    //隐藏
+    }
+
+    private Runnable mRunnableLoadMore = new Runnable() {
+        @Override
+        public void run() {
+            int state = LoadMoreHolder.STATE_LOADING;
+            //加载更多数据
+            List<T> loadMoreData = null;
+            try {
+                loadMoreData = getLoadMoreData();
+                SystemClock.sleep(1000);
+                if (loadMoreData.size() < 20){//不足20条数据
                     state=LoadMoreHolder.STATE_NONE;
                 }
 
-                //唤醒适配器,再刷新加载更多的状态
-                final int finalState = state;
-                UiUtils.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        notifyDataSetChanged();
-                        mLoadMoreHolder.setItemState(finalState);
-                        isLoadingMore = false;//恢复正在加载
-                    }
-                });
-
+            } catch (Exception e) {
+                e.printStackTrace();
+                //加载失败
+                state=LoadMoreHolder.STATE_FAIL;
             }
-        }).start();
+            if (loadMoreData != null) {
+                mData.addAll(loadMoreData);
+                //隐藏
+                state=LoadMoreHolder.STATE_NONE;
+            }
 
-    }
+            //唤醒适配器,再刷新加载更多的状态
+            final int finalState = state;
+            UiUtils.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                    mLoadMoreHolder.setItemState(finalState);
+                    isLoadingMore = false;//恢复正在加载
+                }
+            });
+
+        }
+    };
+
+
 
     protected abstract List<T> getLoadMoreData() throws Exception;
 

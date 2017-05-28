@@ -1,13 +1,14 @@
 package googleplay.kimda.com.googleplay.views;
 
 import android.content.Context;
-import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import googleplay.kimda.com.googleplay.R;
+import googleplay.kimda.com.googleplay.manager.ThreadManager;
 import googleplay.kimda.com.googleplay.utils.UiUtils;
 
 import static googleplay.kimda.com.googleplay.utils.UiUtils.getContext;
@@ -90,7 +91,20 @@ public abstract class KimdaAsyncTask {
         refreshUI();
 
         //访问网络
-        new Thread(new Runnable() {
+//        new Thread(mRunnableFirstServiceData()).start();
+
+        //使用线程池
+        ThreadManager.getNormalPool().execute(mRunnableFirstServiceData());
+
+
+
+    }
+
+
+
+    @NonNull
+    private Runnable mRunnableFirstServiceData() {
+        return new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "访问 Service");
@@ -99,7 +113,7 @@ public abstract class KimdaAsyncTask {
                 mCurrentState = result.getResult();
                 afreshRefreshUI();
             }
-        }).start();
+        };
     }
 
     /**
