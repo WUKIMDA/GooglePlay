@@ -32,7 +32,7 @@ public class AppHolder extends BaseHolder<HomeBean.ListBean> {
         mItemAppinfoTvDes.setText(itemData.getDes());
         mItemAppinfoRbStars.setRating(itemData.getStars());
         //Picasso加载图片
-        Picasso.with(UiUtils.getContext()).load(Contans.URL_HOME_IMAGE+itemData.getIconUrl()).into(mItemAppinfoIvIcon);
+        Picasso.with(UiUtils.getContext()).load(Contans.URL_IMAGE +itemData.getIconUrl()).into(mItemAppinfoIvIcon);
     }
 
     @Override

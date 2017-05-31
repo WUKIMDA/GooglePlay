@@ -1,6 +1,7 @@
 package googleplay.kimda.com.googleplay.adapters;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -74,10 +75,10 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
         }
         //////////////////////////////////////////////////////////////
         if (position == getCount() - 1) {
-            if (supportLayout()){//支持加载更多的Adapter
+            if (supportLayout()) {//支持加载更多的Adapter
                 //加载更多
                 loadMoreData();
-            }else{//不支持加载更多的Adapter
+            } else {//不支持加载更多的Adapter
                 mLoadMoreHolder.setItemState(LoadMoreHolder.STATE_NONE);
             }
 
@@ -91,27 +92,29 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
         return convertView;
     }
 
-    /**Adapter是否有加载更多的功能,默认true*/
+    /**
+     * Adapter是否有加载更多的功能,默认true
+     */
     boolean isSupport = true;
 
-    /**Adapter是否有加载更多的功能,默认true*/
-    public boolean supportLayout(){
+    /*** Adapter是否有加载更多的功能,默认true*/
+    public boolean supportLayout() {
         return isSupport;
     }
 
 
     private boolean isLoadingMore;
 
-    private void loadMoreData() {
+    public void loadMoreData() {
         //加载更多的时候防止手快用户重复加载//isLoadingMore的开关
-        if (isLoadingMore){
+        if (isLoadingMore) {
             return;
         }
         isLoadingMore = true;
 
         getLoadModeHolderInstance().setItemState(LoadMoreHolder.STATE_LOADING);
 
-       // new Thread(mRunnableLoadMore).start();
+        // new Thread(mRunnableLoadMore).start();
         //使用线程池:特点:高效
         ThreadManager.getNormalPool().execute(mRunnableLoadMore);
 
@@ -125,20 +128,26 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
             List<T> loadMoreData = null;
             try {
                 loadMoreData = getLoadMoreData();
-                SystemClock.sleep(1000);
-                if (loadMoreData.size() < 20){//不足20条数据
-                    state=LoadMoreHolder.STATE_NONE;
+                SystemClock.sleep(500);
+                if (loadMoreData.size() < 20) {//不足20条数据
+                    state = LoadMoreHolder.STATE_NONE;
+                    Log.e("loadmore", "不足20条数据");
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
                 //加载失败
-                state=LoadMoreHolder.STATE_FAIL;
+                state = LoadMoreHolder.STATE_FAIL;
+                Log.e("loadmore", "网络异常");
             }
             if (loadMoreData != null) {
                 mData.addAll(loadMoreData);
-                //隐藏
-                state=LoadMoreHolder.STATE_NONE;
+                //有数据,并且大于20个数据,加载状态
+                //state = LoadMoreHolder.STATE_LOADING;默认是有>20的初始化值
+                Log.e("loadmore", "a.服务器确实>20的数据");
+            } else {
+                Log.e("loadmore", "b.服务器确实返回了空数据");
+                state = LoadMoreHolder.STATE_FAIL;
             }
 
             //唤醒适配器,再刷新加载更多的状态
@@ -146,15 +155,19 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
             UiUtils.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    notifyDataSetChanged();
+
                     mLoadMoreHolder.setItemState(finalState);
+                    //当NONE不加载或者显示Load都是有数据的,只是数量问题
+                    if (finalState != LoadMoreHolder.STATE_FAIL) {//bug修复:再次加载数据时网络异常一直出现"加载更多".
+                        notifyDataSetChanged();
+                    }
                     isLoadingMore = false;//恢复正在加载
+                    Log.d("run", "刷新UI");
                 }
             });
 
         }
     };
-
 
 
     protected abstract List<T> getLoadMoreData() throws Exception;
@@ -193,7 +206,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
      */
     public LoadMoreHolder getLoadModeHolderInstance() {
         if (mLoadMoreHolder == null) {
-            mLoadMoreHolder = new LoadMoreHolder();
+            mLoadMoreHolder = new LoadMoreHolder(this);
         }
         return mLoadMoreHolder;
     }

@@ -15,26 +15,36 @@
 
 
         <!--<org.itheima15.googleplay.view.RatioLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="4dp"-->
-            <!--app:rlRatio="2.43"-->
-            <!--app:rlRelative="width">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--app:rlRatio="2.43"-->
+        <!--app:rlRelative="width">-->
+        <googleplay.kimda.com.googleplay.views.SubjectImageLayout
+            android:layout_width="match_parent"
+            android:layout_height="9999dp"
+            android:layout_marginTop="4dp"
+            app:Ratio="2.42"
+            app:Relative="width">
+
+
 
             <ImageView
                 android:id="@+id/item_subject_iv_icon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_default"/>
 
+
+        </googleplay.kimda.com.googleplay.views.SubjectImageLayout>
         <!--</org.itheima15.googleplay.view.RatioLayout>-->
 
         <TextView
             android:id="@+id/item_subject_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_red_dark"
-            android:text="title"/>
+            android:text="title"
+            android:textColor="@android:color/holo_red_dark"/>
     </LinearLayout>
 
 </FrameLayout>

@@ -43,7 +43,8 @@
         android:layout_marginRight="4dp"
         android:background="@drawable/list_item_bg"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <!-- 加载失败 -->
 

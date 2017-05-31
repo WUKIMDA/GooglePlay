@@ -15,7 +15,7 @@ import it.sephiroth.android.library.picasso.Picasso;
 /**
  * Created by BUTTON on 2017-05-26.
  */
-//TODO:要做的只是初始化控件,可以View重新填充弄出控件再删除进行快捷初始化,然后refreshItem()进行数据的设置
+//KIMDA:要做的只是初始化控件,可以View重新填充弄出控件再删除进行快捷初始化,然后refreshItem()进行数据的设置
 public class HomeHolder extends BaseHolder<HomeBean.ListBean> {//注意  泛型在这里添加
 
     public ImageView mItemAppinfoIvIcon;
@@ -34,7 +34,7 @@ public class HomeHolder extends BaseHolder<HomeBean.ListBean> {//注意  泛型�
         mItemAppinfoTvDes.setText(data.getDes());
         mItemAppinfoRbStars.setRating(data.getStars());
         //Picasso加载图片
-        Picasso.with(UiUtils.getContext()).load(Contans.URL_HOME_IMAGE + data.getIconUrl()).into(mItemAppinfoIvIcon);
+        Picasso.with(UiUtils.getContext()).load(Contans.URL_IMAGE + data.getIconUrl()).into(mItemAppinfoIvIcon);
     }
 
     public void init() {

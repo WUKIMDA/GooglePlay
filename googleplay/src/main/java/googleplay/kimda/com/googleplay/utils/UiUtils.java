@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -18,6 +19,7 @@ public class UiUtils {
 
     /**
      * 初始化
+     *
      * @param googlePlay
      */
     public static void init(Application googlePlay) {
@@ -28,14 +30,16 @@ public class UiUtils {
 
     /**
      * 返回上下文
+     *
      * @return
      */
-    public static Context getContext(){
+    public static Context getContext() {
         return sContext;
     }
 
     /**
      * 获得当前线程的id
+     *
      * @return
      */
     public static int getMainThreadId() {
@@ -44,6 +48,7 @@ public class UiUtils {
 
     /**
      * Handler.post(task)  没有判断是不是主线程
+     *
      * @param task
      */
     public static void postTask(Runnable task) {
@@ -52,15 +57,17 @@ public class UiUtils {
 
     /**
      * 获得handler
+     *
      * @return
      */
     public static Handler getHandler() {
         return sHandler;
     }
 
-    /**  延迟提交任务
-     *  sHandler.postDelayed(task, time);
-     *  没有判断是不是主线程
+    /**
+     * 延迟提交任务
+     * sHandler.postDelayed(task, time);
+     * 没有判断是不是主线程
      */
     public static void postDelay(Runnable task, long time) {
         sHandler.postDelayed(task, time);
@@ -71,7 +78,9 @@ public class UiUtils {
         return sContext.getResources().getStringArray(resId);
     }
 
-    /**判断当前是否运行在主线程*/
+    /**
+     * 判断当前是否运行在主线程
+     */
     public static boolean isRunOnUiThread() {
         return getMainThreadId() == android.os.Process.myTid();
     }
@@ -100,7 +109,9 @@ public class UiUtils {
         return sContext.getResources().getColor(id);
     }
 
-    /** * 根据id获取尺寸 */
+    /**
+     * 根据id获取尺寸
+     */
     public static int getDimen(int id) {
         return sContext.getResources().getDimensionPixelSize(id);
     }
@@ -120,6 +131,21 @@ public class UiUtils {
     /*** 加载布局文件*/
     public static View inflate(int layoutId) {
         return View.inflate(sContext, layoutId, null);
+    }
+
+    /**
+     * Log打印,d模式
+     *
+     * @param clazz
+     * @param printStr
+     */
+    public static void logD(Class clazz, String printStr) {
+        Log.d(clazz.getSimpleName(), clazz.getClass().getSimpleName() + " : " + printStr);
+    }
+
+    /**移除Runnable任务*/
+    public static void removeTask(Runnable task) {
+        sHandler.removeCallbacks(task);
     }
 
 }
