@@ -1,4 +1,4 @@
-package googleplay.kimda.com.googleplay.fragments;
+package googleplay.kimda.com.googleplay.basic;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import googleplay.kimda.com.googleplay.utils.UiUtils;
-import googleplay.kimda.com.googleplay.views.KimdaAsyncTask;
 
 /**
  * Created by BUTTON on 2017-05-25.
  */
 
 public abstract class BaseFragment extends Fragment {
+
 
     private KimdaAsyncTask mKimdaAsyncTask;
 

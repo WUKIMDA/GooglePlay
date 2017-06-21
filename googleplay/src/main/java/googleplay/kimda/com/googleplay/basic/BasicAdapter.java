@@ -1,4 +1,4 @@
-package googleplay.kimda.com.googleplay.adapters;
+package googleplay.kimda.com.googleplay.basic;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-import googleplay.kimda.com.googleplay.holder.BaseHolder;
 import googleplay.kimda.com.googleplay.holder.LoadMoreHolder;
 import googleplay.kimda.com.googleplay.manager.ThreadManager;
 import googleplay.kimda.com.googleplay.utils.UiUtils;

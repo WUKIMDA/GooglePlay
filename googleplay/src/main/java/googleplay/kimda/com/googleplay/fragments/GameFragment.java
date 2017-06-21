@@ -8,10 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import googleplay.kimda.com.googleplay.adapters.GameAdapter;
+import googleplay.kimda.com.googleplay.basic.BaseFragment;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 import googleplay.kimda.com.googleplay.protocol.GameProtocol;
 import googleplay.kimda.com.googleplay.utils.UiUtils;
-import googleplay.kimda.com.googleplay.views.KimdaAsyncTask;
+import googleplay.kimda.com.googleplay.basic.KimdaAsyncTask;
 
 /**
  * Created by BUTTON on 2017-05-25.

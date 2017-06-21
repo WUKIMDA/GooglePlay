@@ -1,4 +1,4 @@
-package googleplay.kimda.com.googleplay.holder;
+package googleplay.kimda.com.googleplay.basic;
 
 import android.view.View;
 
@@ -11,8 +11,13 @@ import android.view.View;
  * @param <T>
  */
 public abstract class BaseHolder<T> {
+    public T mItemData;
 
-    private T mItemData;
+    public BaseHolder(){}
+
+    public BaseHolder(T t){
+        mItemData = t;
+    }
 
     /**单一Item, 具体Bean数据,不是List集合*/
     public void setData(T data) {

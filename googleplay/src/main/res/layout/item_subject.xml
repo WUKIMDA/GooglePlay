@@ -13,6 +13,14 @@
         android:orientation="vertical"
         android:padding="4dp">
 
+        <!--
+        注意事项 ：
+            【1】以下自定义控件使用指定宽模式（固定宽模式）
+                填充父窗体就按照比例设置高度，而高度设置什么是无意义的
+            【2】注意边距的减去
+            【3】子控件+边距 = 父控件 //两两包裹
+        -->
+
 
         <!--<org.itheima15.googleplay.view.RatioLayout-->
         <!--android:layout_width="match_parent"-->
@@ -22,7 +30,7 @@
         <!--app:rlRelative="width">-->
         <googleplay.kimda.com.googleplay.views.SubjectImageLayout
             android:layout_width="match_parent"
-            android:layout_height="9999dp"
+            android:layout_height="2dp"
             android:layout_marginTop="4dp"
             app:Ratio="2.42"
             app:Relative="width">

@@ -14,13 +14,13 @@ import googleplay.kimda.com.googleplay.R;
  */
 
 public class SubjectImageLayout extends FrameLayout {
-    float mRatio = 2.42f;
+    private float mRatio = 2.42f;
     public static final int RELATIVE_WIDTH = 0;
     public static final int RELATIVE_HEIGHT = 1;
     private int mMode;
 
     public SubjectImageLayout(@NonNull Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public SubjectImageLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -31,7 +31,7 @@ public class SubjectImageLayout extends FrameLayout {
         mMode = typedArray.getInteger(R.styleable.SubjectImageLayout_Relative, RELATIVE_WIDTH);
 
 
-       // typedArray.recycle();
+        // typedArray.recycle();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SubjectImageLayout extends FrameLayout {
 
         if (mMode == RELATIVE_WIDTH) {   //指定宽模式
             //2.测量自己的孩子
-            //KIMDA :固定宽, 根据mRatio=2.42比率测量宽    //根据指定宽, 动态调整高度效果
+            //KIMDA :固定宽, 默认根据mRatio=2.42比率测量宽    //根据指定宽, 动态调整高度效果
             int childWidth = widthSize - getPaddingLeft() - getPaddingRight();
             int childHight = (int) (childWidth / mRatio);
             //测量孩子
@@ -74,5 +74,27 @@ public class SubjectImageLayout extends FrameLayout {
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
+    }
+
+    public float getRatio() {
+        return mRatio;
+    }
+
+    /**设置比例
+     * @param ratio
+     */
+    public void setRatio(float ratio) {
+        mRatio = ratio;
+    }
+
+    public int getMode() {
+        return mMode;
+    }
+
+    /**设置指定模式,width或者height
+     * @param mode
+     */
+    public void setMode(int mode) {
+        mMode = mode;
     }
 }

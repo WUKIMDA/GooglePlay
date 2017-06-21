@@ -2,6 +2,8 @@ package googleplay.kimda.com.googleplay.fragments;
 
 import java.util.HashMap;
 
+import googleplay.kimda.com.googleplay.basic.BaseFragment;
+
 /**
  * Created by BUTTON on 2017-05-25.
  */

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import googleplay.kimda.com.googleplay.R;
+import googleplay.kimda.com.googleplay.basic.BaseHolder;
 import googleplay.kimda.com.googleplay.beans.SubjectBean;
 import googleplay.kimda.com.googleplay.utils.Contans;
 import googleplay.kimda.com.googleplay.utils.UiUtils;

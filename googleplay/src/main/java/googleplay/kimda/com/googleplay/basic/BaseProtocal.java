@@ -1,4 +1,4 @@
-package googleplay.kimda.com.googleplay.protocol;
+package googleplay.kimda.com.googleplay.basic;
 
 import android.os.Environment;
 import android.util.Log;
@@ -34,7 +34,7 @@ import okhttp3.ResponseBody;
  * protocalUrl()固定 + getPager()抽象+抽象Map集合赋值
  */
 public abstract class BaseProtocal<T> {
-    Map<String, String> mParams;
+    public Map<String, String> mParams;
 
     private String protocalUrl() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -83,7 +83,7 @@ public abstract class BaseProtocal<T> {
             return localT;
         }
 
-        //////////////////////////////////////////////////////KIMDa 网络
+        //////////////////////////////////////////////////////KIMDA 网络
         Log.e("BaseProtocal", "网络获取");
         //完整的url获取
         String url = protocalUrl();

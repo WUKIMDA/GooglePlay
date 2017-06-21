@@ -3,6 +3,7 @@ package googleplay.kimda.com.googleplay.protocol;
 import java.util.List;
 import java.util.Map;
 
+import googleplay.kimda.com.googleplay.basic.BaseProtocal;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 
 /**

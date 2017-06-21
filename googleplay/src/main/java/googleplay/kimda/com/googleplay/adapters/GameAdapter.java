@@ -3,9 +3,10 @@ package googleplay.kimda.com.googleplay.adapters;
 import java.util.HashMap;
 import java.util.List;
 
+import googleplay.kimda.com.googleplay.basic.BasicAdapter;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 import googleplay.kimda.com.googleplay.holder.AppHolder;
-import googleplay.kimda.com.googleplay.holder.BaseHolder;
+import googleplay.kimda.com.googleplay.basic.BaseHolder;
 import googleplay.kimda.com.googleplay.protocol.GameProtocol;
 
 /**

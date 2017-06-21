@@ -1,4 +1,4 @@
-package googleplay.kimda.com.googleplay.views;
+package googleplay.kimda.com.googleplay.basic;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -95,8 +95,6 @@ public abstract class KimdaAsyncTask {
 
         //使用线程池
         ThreadManager.getNormalPool().execute(mRunnableFirstServiceData());
-
-
 
     }
 

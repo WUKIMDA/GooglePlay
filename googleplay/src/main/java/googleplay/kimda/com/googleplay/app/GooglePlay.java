@@ -29,4 +29,5 @@ public class GooglePlay extends Application {
         //启动自己的工具类
         UiUtils.init(this);
     }
+
 }

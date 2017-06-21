@@ -2,13 +2,14 @@ package googleplay.kimda.com.googleplay.fragments;
 
 import android.view.View;
 
-import googleplay.kimda.com.googleplay.views.KimdaAsyncTask;
+import googleplay.kimda.com.googleplay.basic.BaseFragment;
+import googleplay.kimda.com.googleplay.basic.KimdaAsyncTask;
 
 /**
  * Created by BUTTON on 2017-05-25.
  */
 
-public class OtherFragment extends  BaseFragment {
+public class OtherFragment extends BaseFragment {
 
 
     @Override

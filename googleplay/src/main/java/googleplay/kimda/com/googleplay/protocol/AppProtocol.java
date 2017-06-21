@@ -3,13 +3,14 @@ package googleplay.kimda.com.googleplay.protocol;
 import java.util.List;
 import java.util.Map;
 
+import googleplay.kimda.com.googleplay.basic.BaseProtocal;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 
 /**
  * Created by BUTTON on 2017-05-30.
  */
 
-public class AppProtocol extends  BaseProtocal<List<HomeBean.ListBean>>{
+public class AppProtocol extends BaseProtocal<List<HomeBean.ListBean>> {
     @Override
     public void setMapData(Map<String, String> params) {
         this.mParams = params;

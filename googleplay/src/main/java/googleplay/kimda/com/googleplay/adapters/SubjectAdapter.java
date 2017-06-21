@@ -2,14 +2,15 @@ package googleplay.kimda.com.googleplay.adapters;
 
 import java.util.List;
 
-import googleplay.kimda.com.googleplay.holder.BaseHolder;
+import googleplay.kimda.com.googleplay.basic.BasicAdapter;
+import googleplay.kimda.com.googleplay.basic.BaseHolder;
 import googleplay.kimda.com.googleplay.holder.SubjectHolder;
 
 /**
  * Created by BUTTON on 2017-05-31.
  */
 
-public class SubjectAdapter extends BasicAdapter{
+public class SubjectAdapter extends BasicAdapter {
 
     @Override
     public boolean supportLayout() {

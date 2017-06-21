@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import googleplay.kimda.com.googleplay.adapters.AppAdapter;
+import googleplay.kimda.com.googleplay.basic.BaseFragment;
 import googleplay.kimda.com.googleplay.beans.HomeBean;
 import googleplay.kimda.com.googleplay.protocol.AppProtocol;
 import googleplay.kimda.com.googleplay.utils.UiUtils;
-import googleplay.kimda.com.googleplay.views.KimdaAsyncTask;
+import googleplay.kimda.com.googleplay.basic.KimdaAsyncTask;
 
 
 /**
